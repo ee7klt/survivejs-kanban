@@ -18,6 +18,12 @@ const common = {
     filename: 'bundle.js'
   },
   module: {
+    preLoaders: [{
+      test: /\.jsx?$/,
+      loaders: ['jshint'],
+      include: PATHS.app
+     }
+    ],
     loaders: [
       {
         test: /\.css$/,
