@@ -9,6 +9,8 @@ const PATHS = {
   build: path.join(__dirname, 'build')
 };
 
+
+
 const common = {
   entry: {
     app: PATHS.app
@@ -20,7 +22,8 @@ const common = {
   module: {
     preLoaders: [{
       test: /\.jsx?$/,
-      loaders: ['jshint'],
+      // connect eslint to webpack so that it can emit ESLInt messages for us
+      loaders: ['eslint'],
       include: PATHS.app
      }
     ],
