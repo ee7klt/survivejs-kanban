@@ -2,6 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
+const stylelint = require('stylelint');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -15,6 +16,9 @@ const common = {
   entry: {
     app: PATHS.app
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
@@ -25,12 +29,29 @@ const common = {
       // connect eslint to webpack so that it can emit ESLInt messages for us
       loaders: ['eslint'],
       include: PATHS.app
-     }
+    },
+    {
+      test: /\.css$/,
+      loaders: ['postcss'],
+      include: PATHS.app,
+    }
     ],
+    postcss: function() {
+      return [stylelint({
+        rules: {
+          'color-hex-case': 'lower'
+        }
+      })]
+    },
     loaders: [
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
+        include: PATHS.app
+      },
+      {
+        test: /\.jsx?$/,
+        loaders:['babel?cacheDirectory'],
         include: PATHS.app
       }
     ]
