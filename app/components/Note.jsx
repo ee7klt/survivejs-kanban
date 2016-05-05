@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default () => (
-  <h1>Learn Webpack Yay!</h1>
+  <h1>Learn Webpack Booyah!</h1>
 )
